@@ -1,5 +1,8 @@
 package com.hanover.batch.config;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.sql.DataSource;
 
 import org.springframework.batch.core.Job;
@@ -9,12 +12,14 @@ import org.springframework.batch.core.configuration.annotation.EnableBatchProces
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
+import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.database.BeanPropertyItemSqlParameterSourceProvider;
 import org.springframework.batch.item.database.JdbcBatchItemWriter;
 import org.springframework.batch.item.database.JdbcCursorItemReader;
 import org.springframework.batch.item.file.FlatFileItemWriter;
 import org.springframework.batch.item.file.transform.BeanWrapperFieldExtractor;
 import org.springframework.batch.item.file.transform.DelimitedLineAggregator;
+import org.springframework.batch.item.support.CompositeItemWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -77,8 +82,18 @@ public class BatchConfiguration {
 		return writer;
 	}*/
 	
+	
 	@Bean
-	public JdbcBatchItemWriter<Employee> writer(){
+	public JdbcBatchItemWriter<Employee> writer1(){
+		JdbcBatchItemWriter<Employee> writer = new JdbcBatchItemWriter<>();
+		writer.setDataSource(datasource1);
+		writer.setItemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<Employee>());
+		writer.setSql("INSERT INTO employee_new(empid,empname,empsalary) VALUES(:empId, :empName, :empSalary)");
+		return writer;
+	}
+	
+	@Bean
+	public JdbcBatchItemWriter<Employee> writer2(){
 		JdbcBatchItemWriter<Employee> writer = new JdbcBatchItemWriter<>();
 		writer.setDataSource(datasource2);
 		writer.setItemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<Employee>());
@@ -87,8 +102,20 @@ public class BatchConfiguration {
 	}
 	
 	@Bean
+	public CompositeItemWriter<Employee> compositeWriter(){
+		CompositeItemWriter<Employee> writer = new CompositeItemWriter<>();
+		List<ItemWriter<? super Employee>> writerList = new ArrayList<>();
+		writerList.add(writer1());
+		writerList.add(writer2());
+		writer.setDelegates(writerList);
+		return writer;
+	}
+	
+	
+	
+	@Bean
 	public Step step1(){
-		return stepBuilderFactory.get("step1").<Employee,Employee>chunk(10).reader(reader()).processor(processor()).writer(writer()).build();
+		return stepBuilderFactory.get("step1").<Employee,Employee>chunk(10).reader(reader()).processor(processor()).writer(compositeWriter()).build();
 	}
 
 	@Bean
