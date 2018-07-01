@@ -148,9 +148,7 @@ public class XmlGenerator {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
-		
+	
 
 	}
 
