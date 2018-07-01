@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="unqualified" attributeFormDefault="unqualified">
+	<xsd:redefine schemaLocation="D:\Spring_Boot\XsdToXml\transactionDefinitionFile.xsd">
+		<!-- PRIVATE COMPANY EXTENSIONS -->
+		<xsd:complexType name="T_fieldElement">
+		  	<xsd:complexContent>
+	     		<xsd:extension base="T_fieldElement">
+	           			<xsd:attribute name="dictId" type="xsd:string"/>
+	     		</xsd:extension>
+	  		</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:redefine>
+</xsd:schema>

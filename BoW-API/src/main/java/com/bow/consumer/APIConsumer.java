@@ -27,6 +27,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
+import com.bow.api.main.model.ResponseModel;
 import com.bow.api.main.model.SystemwareModel;
 import com.bow.api.main.model.SystemwareModels;
 import com.sun.jersey.api.client.Client;
@@ -39,20 +40,37 @@ import com.sun.jersey.client.urlconnection.HTTPSProperties;
 
 public class APIConsumer {
 	
-	@Autowired
-	static
-	Environment environment;
-	
-	//static String port = environment.getProperty("local.server.port");
-	//static String ip   = environment.getProperty("local.server.address");
-			
-	
 	public static void main(String[] args) throws IOException, RestClientException, URISyntaxException {
 		
 		InetAddress address = InetAddress.getLocalHost();
-		//System.err.println(environment.getProperty("local.server.port"));
-		//System.err.println(environment.getProperty("local.server.address"));
+		XmlParser parser = new XmlParser();
 		RestTemplate restTemplate = new RestTemplate();
+		System.setProperty("javax.net.ssl.trustStore", "");
+		System.setProperty("javax.net.ssl.trustStorePassword", "changeit");
+		System.setProperty("javax.net.ssl.keyStore", "");
+		System.setProperty("javax.net.ssl.keyStorePassword", "changeit");
+		
+		String logInUrl = "";
+		
+		/**
+		 * login api call
+		 */
+		HttpHeaders loginHeaders = new HttpHeaders();
+		loginHeaders.setAccept(Arrays.asList(MediaType.APPLICATION_XML));
+		loginHeaders.setContentType(MediaType.APPLICATION_XML);
+		HttpEntity<String> loginEntity = new HttpEntity<>("parameters", loginHeaders);
+		ResponseEntity<String> response = restTemplate.exchange(logInUrl, HttpMethod.GET, loginEntity, String.class);
+		
+		System.out.println("response Headers ----->" +response.getHeaders());
+		System.out.println("response Body ----->" +response.getBody());
+		System.out.println("response String----->" +response.toString());
+		
+		/**
+		 * setting up headers for get statements
+		 * api call
+		 */
+		
+		List<ResponseModel> loginResponse = parser.parseXMLResponse(response.getBody().toString(), "login");
 		String action = "search";
 		String tplId = "GetStatements";
 		String acctNum = "156124919";
@@ -60,22 +78,41 @@ public class APIConsumer {
 		String rmNum = "5845845";
 		String uri = "http://localhost:8080/ci?action=" + action + "&tplid=" + tplId + "&acctnum=" + acctNum
 				+ "&primaryaccttype=" + primaryAccType + "&rmnum=" + rmNum;
-		System.err.println("URI to be hit is >>>" +uri);
-		//SystemwareModels response = restTemplate.getForObject(uri, SystemwareModels.class);
-		//String response = restTemplate.getForObject(uri, String.class);
-		//ResponseEntity<String> response = restTemplate.getForEntity(new URI(uri), String.class);
+		System.err.println("URI to be hit is >>>" +uri);		
 		
-		HttpHeaders headers = new HttpHeaders();
-		headers.setAccept(Arrays.asList(MediaType.APPLICATION_XML));
-		HttpEntity<String> entity = new HttpEntity<>("parameters", headers);
-		ResponseEntity<String> response = restTemplate.exchange(uri, HttpMethod.GET, entity, String.class);
-		//URL url = new URL(uri);
-		//HttpURLConnection con = (HttpURLConnection) url.openConnection();
+		HttpHeaders statementHeaders = new HttpHeaders();
+		statementHeaders.setAccept(Arrays.asList(MediaType.APPLICATION_XML));
+		statementHeaders.setContentType(MediaType.APPLICATION_XML);
+		loginResponse.forEach(obj ->{
+			//statementHeaders.set("sid", obj.getSessionId());
+			statementHeaders.set("Cookie" ,"JSESSIONID="+obj.getjSessionId());
+		});
+		HttpEntity<String> statementEntity = new HttpEntity<>("parameters", statementHeaders);
+		ResponseEntity<String> statementResponse = restTemplate.exchange(uri, HttpMethod.GET, statementEntity, String.class);
+		
+		System.out.println("statementResponse Headers ----->" +statementResponse.getHeaders());
+		System.out.println("statementResponse Body ----->" +statementResponse.getBody());
+		System.out.println("statementResponse String----->" +statementResponse.toString());
+		
+		/**
+		 * pdf api call
+		 */
+		List<ResponseModel> statementList = parser.parseXMLResponse(statementResponse.getBody().toString(), "getStatement");
+		
+		String tId = statementList.get(2).gettId();
+		
+		String pdfUrl = "";
+		
+		HttpHeaders pdfHeaders = new HttpHeaders();
+		pdfHeaders.setAccept(Arrays.asList(MediaType.APPLICATION_XML));
+		pdfHeaders.setContentType(MediaType.APPLICATION_XML);
+		HttpEntity<String> pdfEntity = new HttpEntity<>("parameters", pdfHeaders);
+		ResponseEntity<String> pdfResponse = restTemplate.exchange(pdfUrl, HttpMethod.GET, pdfEntity, String.class);
 		
 		//BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-		System.out.println("Response Headers ----->" +response.getHeaders());
-		System.out.println("Response Body ----->" +response.getBody());
-		System.out.println("Response String----->" +response.toString());
+		System.out.println("pdfResponse Headers ----->" +pdfResponse.getHeaders());
+		System.out.println("pdfResponse Body ----->" +pdfResponse.getBody());
+		System.out.println("pdfResponse String----->" +pdfResponse.toString());
 		
 		/*List<SystemwareModel> modelList = response.getList();
 
@@ -89,7 +126,7 @@ public class APIConsumer {
 		/**
 		 * consuming secured https api
 		 */
-		DefaultClientConfig clientConfig = new DefaultClientConfig();
+		/*DefaultClientConfig clientConfig = new DefaultClientConfig();
 		try {
 			SSLContext sslContext = SSLContext.getInstance("SSL");
 			ServerTrustManager trustManager = new ServerTrustManager();
@@ -110,7 +147,7 @@ public class APIConsumer {
 		} catch (NoSuchAlgorithmException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 		
 	}
 

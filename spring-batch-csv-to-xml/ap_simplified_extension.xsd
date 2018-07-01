@@ -1,0 +1,1058 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="unqualified" attributeFormDefault="unqualified">
+	<!-- There are several changes made to the base ACORD schema that could technically be done via restrictions and then
+	extensions. XMLSpy and XSOM were fine with this approach but JDOM validation could not handle the complexity and had issues so a design decision was
+	made to apply those changes directly to the ACORD schema rather than embracing restrictions as a technique. -->
+	<xsd:redefine schemaLocation="../schemas/SpecialtyPolicyQuoteInqRq.xsd">
+		<!-- PRIVATE COMPANY EXTENSIONS -->
+		<xsd:complexType name="Producer_Type">
+			<xsd:annotation>
+				<xsd:documentation>support for producer detail service indicator messaging</xsd:documentation>
+			</xsd:annotation>
+		  	<xsd:complexContent>
+	     		<xsd:extension base="Producer_Type">
+	        		<xsd:sequence>
+	           			<xsd:element ref="AP_DetailSvcFailedInd" minOccurs="0" maxOccurs="1"/>
+	           			<xsd:element ref="AP_DetailSvcInvalidInd" minOccurs="0" maxOccurs="1"/>
+	           			<xsd:element ref="AP_ProducerPcsCode" minOccurs="0" maxOccurs="1"/>
+	           			<xsd:element ref="AP_UserGroupId" minOccurs="0" maxOccurs="1"/>
+	        		</xsd:sequence>
+	     		</xsd:extension>
+	  		</xsd:complexContent>
+		</xsd:complexType>
+	
+		<xsd:complexType name="SpecialtyPolicyQuoteInqRq_Type">
+			<xsd:complexContent>
+				<xsd:extension base="SpecialtyPolicyQuoteInqRq_Type">
+					<xsd:sequence>
+						<xsd:element ref="ModInfo" minOccurs="0" maxOccurs="unbounded"/>
+						<xsd:element ref="AP_LobIndicators" minOccurs="0" maxOccurs="1"/>
+						<xsd:element ref="AP_TmpPaths" minOccurs="0" maxOccurs="1"/>
+						<xsd:element ref="AP_Data" minOccurs="0"/>
+					</xsd:sequence>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+		<!--  
+		<xsd:complexType name="SpecialtyPolicyModRq_Type">
+			<xsd:complexContent>
+				<xsd:extension base="SpecialtyPolicyQuoteInqRq_Type">
+					<xsd:sequence>
+						<xsd:element ref="AP_LobIndicators" minOccurs="0" maxOccurs="1"/>
+						<xsd:element ref="AP_TmpPaths" minOccurs="0" maxOccurs="1"/>
+						<xsd:element ref="AP_Data" minOccurs="0"/>
+					</xsd:sequence>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+		-->
+		
+		<xsd:complexType name="com.hanover_GrossBillingInfo_Type">
+			<xsd:complexContent>
+				<xsd:extension base="com.hanover_GrossBillingInfo_Type">
+					<xsd:sequence>
+						<xsd:element ref="AP_Sequence" minOccurs="0" />
+					</xsd:sequence>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+		<xsd:complexType name="Form_Type">
+			<xsd:complexContent>
+				<xsd:extension base="Form_Type">
+					<xsd:sequence>
+						<xsd:element ref="StateProvCd" minOccurs="0"/>
+						<xsd:element ref="AP_BusinessUsage" minOccurs="0"/>
+						<xsd:element ref="AP_NumberOfFormsToAdd" minOccurs="0"/>
+						<xsd:element ref="AP_FileName" minOccurs="0"/>
+						<xsd:element ref="AP_ManuscriptName" minOccurs="0"/>
+						<xsd:element ref="AP_ManuscriptNumber" minOccurs="0"/>
+						<xsd:element ref="AP_ManuscriptEditionDate" minOccurs="0"/>
+						<xsd:element ref="AP_FormInForceInd" minOccurs="0"/>
+						<xsd:element ref="AP_FormActiveInd" minOccurs="0"/>
+						<xsd:element ref="AP_FormActiveReadOnly" minOccurs="0"/>
+						<xsd:element ref="AP_TransactionList" minOccurs="0"/>
+						<xsd:element ref="AP_TypeOfForm" minOccurs="0"/>
+						<xsd:element ref="AP_SublimitInd" minOccurs="0"/>
+						<xsd:element ref="AP_ChangeType" minOccurs="0" />
+						<xsd:element ref="AP_MonoComboInd" minOccurs="0" />
+						<xsd:element ref="AP_ClaimsOccurenceInd" minOccurs="0" />
+					</xsd:sequence>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+		<xsd:complexType name="CommlCoverage_Type">
+			<xsd:complexContent>
+				<xsd:extension base="CommlCoverage_Type">
+					<xsd:sequence>
+						<xsd:element ref="AP_CoverageInd" minOccurs="0"/>
+					</xsd:sequence>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+		<xsd:complexType name="BusinessInfo_Type">
+			<xsd:complexContent>
+				<xsd:extension base="BusinessInfo_Type">
+					<xsd:sequence>
+						<xsd:element ref="AP_SICCd" minOccurs="0"/>
+					</xsd:sequence>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+		<xsd:complexType name="CommlPolicy_Type">
+			<xsd:complexContent>
+				<xsd:extension base="CommlPolicy_Type">
+					<xsd:sequence>
+						<xsd:element ref="AP_ChangesImpactPMSInd" minOccurs="0"/>
+						<xsd:element ref="AP_PMSCodingInd" minOccurs="0"/>
+						<xsd:element ref="AP_ReferralInd" minOccurs="0"/>
+						<xsd:element ref="AP_QPPToAgentInd" minOccurs="0"/>
+						<xsd:element ref="AP_BindInd" minOccurs="0"/>
+						<xsd:element ref="AP_TempPolicyVersion" minOccurs="0"/>
+						<xsd:element ref="AP_PCComment" minOccurs="0"/>
+						<xsd:element ref="AP_Aggregate" minOccurs="0"/>
+						<xsd:element ref="AP_PackageFinalInd" minOccurs="0"/>
+						<xsd:element ref="AP_AlldExcessDecPkg" minOccurs="0"/>
+						<xsd:element ref="AP_PackageTypeInd" minOccurs="0"/>
+						<xsd:element ref="AP_FullPolicyNumber" minOccurs="0"/>
+						<xsd:element ref="AP_YearsInBusinessRange" minOccurs="0"/>
+						<xsd:element ref="AP_MPLYearsInBusinessRange" minOccurs="0"/>
+						<xsd:element ref="AP_LPLYearsInBusinessRange" minOccurs="0"/>	
+						<xsd:element ref="AP_PRFactor" minOccurs="0"/>
+						<xsd:element ref="AP_SRFactor" minOccurs="0"/>
+						<xsd:element ref="AP_OutputType" minOccurs="0"/>	
+						<xsd:element ref="AP_IssueInd" minOccurs="0"/>
+						<xsd:element ref="AP_PMSRewriteCodingInd" minOccurs="0"/>	
+						<xsd:element ref="AP_PMSCancelCodingInd" minOccurs="0"/>
+						<xsd:element ref="AP_DisplayPMSRewriteCodingInd" minOccurs="0"/>	
+						<xsd:element ref="AP_DisplayPMSCancelCodingInd" minOccurs="0"/>
+						<xsd:element ref="AP_TotalEndTaxSurcharge" minOccurs="0"/>
+						<xsd:element ref="AP_DisplayPremiumWaived" minOccurs="0"/>
+						<xsd:element ref="AP_DisplayReturnPremium" minOccurs="0"/>
+						<xsd:element ref="AP_RatingStateFlag" minOccurs="0"/>
+						<xsd:element ref="AP_ReOrderFormsRenRewr" minOccurs="0"/>
+						<xsd:element ref="AP_FormItalicsIgnoreBindOptnNbr" minOccurs="0"/>
+						<xsd:element ref="AP_OriginId" minOccurs="0"/>
+                        <!-- the AP_UserDataElection is not intended to be persisted.  its present implies an error in handling read only checkboxes on LR  -->
+                        <xsd:element ref="AP_UserDataElection" minOccurs="0"/>
+                        <xsd:element ref="AP_RiskState" minOccurs="0"/>
+                        <xsd:element ref="AP_RetroactiveDate" minOccurs="0"/>
+                        <xsd:element ref="AP_LPLCyberDeductible" minOccurs="0"/>
+                        <xsd:element ref="AP_LPLCyberRetroactiveDate" minOccurs="0"/>
+                         <xsd:element ref="AP_AECyberDeductible" minOccurs="0"/>
+                        <xsd:element ref="AP_AECyberRetroactiveDate" minOccurs="0"/>
+                        <xsd:element ref="AP_CyberExposure" minOccurs="0"/>
+                        <xsd:element ref="AP_MPLExposure" minOccurs="0"/>
+                        <xsd:element ref="AP_LPLExposure" minOccurs="0"/>
+                        <xsd:element ref="AP_IsPreviousTransactionRenewal" minOccurs="0"/>
+                        <xsd:element ref="AP_PolicySymbolForRewriteOnRenwal" minOccurs="0"/>
+                        <xsd:element ref="AP_AEExposure" minOccurs="0"/>
+                        <xsd:element ref="AP_MonolineCrimeEndoTrans" minOccurs="0"/>
+                        <xsd:element ref="AP_OriginalPremiumNB" minOccurs="0"/>
+					</xsd:sequence>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+		<xsd:complexType name="com.hanover_QuoteOption_Type">
+			<xsd:complexContent>
+				<xsd:extension base="com.hanover_QuoteOption_Type">
+					<xsd:sequence>
+						<xsd:element ref="AP_OptionGUID" minOccurs="0"/>
+						<xsd:element ref="AP_PMSPremium" minOccurs="0"/>
+						<xsd:element ref="AP_PMSNetChangeAmt" minOccurs="0"/>
+						<xsd:element ref="AP_PremiumWaivedInd" minOccurs="0"/>
+						<xsd:element ref="AP_TotalEndTaxSurcharge" minOccurs="0"/>
+						<xsd:element ref="AP_DOEPLFLCybPrem_Ind" minOccurs="0"/>
+					</xsd:sequence>
+					<xsd:attribute ref="optionNum"/>
+					<xsd:attribute name="id" type="ID"/>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+		<xsd:complexType name="PCCREDITSURCHARGE">
+			<xsd:complexContent>
+				<xsd:extension base="PCCREDITSURCHARGE_NoID">
+					<xsd:sequence>
+						<xsd:element ref="AP_CoverageInd" minOccurs="0"/>
+					</xsd:sequence>
+					<xsd:attribute name="id" type="ID"/>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+		<xsd:complexType name="com.hanover_GeneralLiabilityLineBusiness_Type">
+			<xsd:complexContent>
+				<xsd:extension base="com.hanover_GeneralLiabilityLineBusiness_Type">
+					<xsd:sequence>
+						<xsd:element ref="AP_ThirdPartyQuestionsCount" minOccurs="0"/>
+						<xsd:element ref="AP_BackupQuestionsCount" minOccurs="0"/>
+						<xsd:element ref="AP_InfoSecurityQuestionsCount" minOccurs="0"/>
+						<xsd:element ref="AP_BusContinuityQuestionsCount" minOccurs="0"/>
+						<xsd:element ref="AP_TypeBureau" minOccurs="0"/>
+						<xsd:element ref="AP_HanoveProfLiabGeneralInfo" minOccurs="0" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>	
+		<xsd:complexType name="com.hanover_DirectorsAndOfficersLineBusiness_Type">
+			<xsd:complexContent>
+				<xsd:extension base="com.hanover_DirectorsAndOfficersLineBusiness_Type">
+					<xsd:sequence>
+						<xsd:element ref="AP_TypeBureau" minOccurs="0"/>
+					</xsd:sequence>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>		
+		<xsd:complexType name="com.hanover_EPLILineBusiness_Type">
+			<xsd:complexContent>
+				<xsd:extension base="com.hanover_EPLILineBusiness_Type">
+					<xsd:sequence>
+						<xsd:element ref="AP_TypeBureau" minOccurs="0"/>
+					</xsd:sequence>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>		
+		<xsd:complexType name="com.hanover_CrimeLineBusiness_Type">
+			<xsd:complexContent>
+				<xsd:extension base="com.hanover_CrimeLineBusiness_Type">
+					<xsd:sequence>
+						<xsd:element ref="AP_TypeBureau" minOccurs="0"/>
+					</xsd:sequence>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>		
+		<xsd:complexType name="com.hanover_FileAttachmentInfo_Type">
+			<xsd:complexContent>
+				<xsd:extension base="com.hanover_FileAttachmentInfo_Type">
+					<xsd:sequence>
+						<xsd:element ref="AP_PackageType" minOccurs="0"/>
+						<xsd:element ref="AP_PackageRqType" minOccurs="0"/>
+						<xsd:element ref="AP_CMURL" minOccurs="0"/>
+					</xsd:sequence>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>		
+		<xsd:complexType name="Deductible_Type">
+			<xsd:complexContent>
+				<xsd:extension base="PCDEDUCTIBLE">
+					<xsd:sequence>
+						<xsd:element ref="IndexAdjustment" minOccurs="0"/>
+						<xsd:element ref="AP_CoverageInd" minOccurs="0"/>
+					</xsd:sequence>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>				
+		<xsd:complexType name="com.hanover_QuoteConditions_Type">
+			<xsd:complexContent>
+				<xsd:extension base="com.hanover_QuoteConditions_Type">
+					<xsd:sequence>
+						<xsd:element ref="AP_Ind" minOccurs="0"/>
+						<xsd:element ref="AP_PriorInd" minOccurs="0"/>
+					</xsd:sequence>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+		<xsd:complexType name="com.hanover_PracticeAreaInfo_Type">
+			<xsd:complexContent>
+				<xsd:extension base="com.hanover_PracticeAreaInfo_Type">
+					<xsd:sequence>
+						<xsd:element ref="AP_Ind" minOccurs="0"/>						
+					</xsd:sequence>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:redefine>
+	<xsd:complexType name="AP_LobIndicators_Type">
+		<xsd:sequence>
+			<xsd:element ref="DO_indicator" minOccurs="0"/>
+			<xsd:element ref="DO_required_indicator" minOccurs="0"/>
+			<xsd:element ref="EPLI_indicator" minOccurs="0"/>
+			<xsd:element ref="FIDUC_indicator" minOccurs="0"/>
+			<xsd:element ref="CRIM_indicator" minOccurs="0"/>
+			<xsd:element ref="Cyber_indicator" minOccurs="0"/>
+			<xsd:element ref="KIDRA_indicator" minOccurs="0"/>
+			<xsd:element ref="MPL_indicator" minOccurs="0"/>
+			<xsd:element ref="LPL_indicator" minOccurs="0"/>
+			<xsd:element ref="AE_indicator" minOccurs="0"/>
+			<xsd:element ref="Cyber_EligibleInd" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="AP_TmpPaths_Type">
+		<xsd:sequence>
+			<xsd:element ref="TmpXPath1"/>
+			<xsd:element ref="TmpXPath2"/>
+			<xsd:element ref="TmpXPath3"/>
+			<xsd:element ref="TmpXPath4"/>
+			<xsd:element ref="TmpXPath5"/>
+			<xsd:element ref="TmpXPath6"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="AP_HanoveProfLiabGeneralInfo_Type">
+		<xsd:sequence minOccurs="0">			
+			<xsd:element ref="com.hanover_PracticeAreaInfo" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element ref="com.hanover_PageSectionCd" minOccurs="0"/>		
+		</xsd:sequence>		
+	</xsd:complexType>
+	<xsd:attribute name="optionNum" type="xsd:string"/>
+	<xsd:element name="AP_Data" type="AP_Data_Type"/>
+	<xsd:element name="AP_IssueStatus" type="C-40"/>
+	<xsd:element name="AP_Ind" type="Boolean"/>
+	<xsd:element name="AP_PriorInd" type="Boolean"/>
+	<xsd:element name="AP_Status" type="C-40"/>
+	<xsd:element name="AP_SymbolLookupInd" type="Boolean"/>
+	<xsd:element name="AP_ProviderExposureInd" type="Boolean"/>
+	<xsd:element name="AP_NamedInsuredInd" type="Boolean"/>
+	<xsd:element name="AP_PolicyNumberGenerated" type="Boolean"/>
+	<xsd:element name="AP_excessNumberGenerated" type="Boolean"/>
+	<xsd:element name="AP_ProcesType" type="C-40"/>
+	<xsd:element name="AP_TransactionType" type="C-40"/>
+	<xsd:element name="AP_QppDisplayCount" type="xsd:string"/>
+	<xsd:element name="AP_AccSumDisplayCount" type="xsd:string"/>
+	<xsd:element name="AP_BindDisplayCount" type="xsd:string"/>
+	<xsd:element name="AP_DecDisplayCount" type="xsd:string"/>
+	<xsd:element name="AP_AuditDisplayCount" type="xsd:string"/>
+	<xsd:element name="AP_DisplayURL" type="xsd:string"/>
+	<xsd:element name="AP_CopyStatusMessage" type="xsd:string"/>
+	<xsd:element name="AP_WISubmittedStatus" type="Boolean"/>
+	<xsd:element name="AP_FinalIssueButtonClicked" type="xsd:string"/>
+	<xsd:element name="AP_FirstVisitIndicator" type="xsd:string"/>
+	<xsd:element name="AP_ServiceEFTPaymentMethod" type="xsd:string"/>
+	<xsd:element name="AP_ServicePayPlan" type="xsd:string"/>
+	<xsd:element name="AP_ServiceDay" type="xsd:string"/>
+	<xsd:element name="AP_StatusBeforeReferral" type="xsd:string"/>
+	<xsd:element name="AP_WIReferralInd" type="xsd:string"/>
+	<xsd:element name="AP_HardRefMsg" type="xsd:string"/>
+	<xsd:element name="AP_HardRefInd" type="xsd:string"/>
+	<xsd:element name="AP_AgentEffDateValidationInd" type="xsd:string"/>
+	<xsd:element name="AP_HardRefSubmitAgentInd" type="xsd:string"/>
+	<xsd:element name="AP_AgntReferralNotes" type="xsd:string"/>
+	<xsd:element name="AP_SoftReferralReviewNotes" type="xsd:string"/>
+	<xsd:element name="AP_HardReferralReviewNotes" type="xsd:string"/>
+	<xsd:element name="AP_PriorPageIdHub" type="xsd:string"/>
+	<xsd:element name="AP_PriorPageIdAgent" type="xsd:string"/>
+	<xsd:element name="AP_EmailAddress" type="xsd:string"/>
+	<xsd:element name="AP_UserId" type="xsd:string"/>
+	<xsd:element name="AP_LossHistoryFactor" type="xsd:string"/>
+	<xsd:element name="AP_BindOptnNbr" type="xsd:string"/>
+	<xsd:complexType name="AP_Data_Type">
+		<xsd:sequence>
+			<xsd:element ref="AP_PerformerAssignment" minOccurs="0"/>
+			<xsd:element ref="AP_UnderwriterReferral" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element ref="AP_FormIterationCounters" minOccurs="0"/>
+			<xsd:element ref="AP_IssueStatus" minOccurs="0"/>
+			<xsd:element ref="AP_SymbolLookupInd" minOccurs="0"/>
+			<xsd:element ref="AP_ProviderExposureInd" minOccurs="0"/>
+			<xsd:element ref="AP_NamedInsuredInd" minOccurs="0"/>	
+			<xsd:element ref="AP_PolicyNumberGenerated" minOccurs="0"/>	
+			<xsd:element ref="AP_excessNumberGenerated" minOccurs="0"/>	
+			<xsd:element ref="AP_RatingChecksum" minOccurs="0"/>
+			<xsd:element ref="AP_Status" minOccurs="0"/>
+			<xsd:element ref="AP_ProcesType" minOccurs="0"/>
+			<xsd:element ref="AP_PolicyModeValues" minOccurs="0"/>
+			<xsd:element ref="AP_DuplicateInd" minOccurs="0"/>
+			<xsd:element ref="AP_DuplicateIndHidden" minOccurs="0"/>
+			<xsd:element ref="AP_LatestPolicyImage" minOccurs="0"/>
+			<xsd:element ref="AP_TransactionType" minOccurs="0"/>			
+			<xsd:element ref="AP_AdjustmentDisplay" minOccurs="0"/>	
+			<xsd:element ref="AP_GeninfoDisplay" minOccurs="0"/>
+			<xsd:element ref="AP_GenerateQPPSubmittedInd" minOccurs="0"/>	
+			<xsd:element ref="AP_EndorsementReWriteInd" minOccurs="0"/>	
+			<xsd:element ref="AP_QppDisplayCount" minOccurs="0"/>
+			<xsd:element ref="AP_AccSumDisplayCount" minOccurs="0"/>
+			<xsd:element ref="AP_BindDisplayCount" minOccurs="0"/>
+			<xsd:element ref="AP_DecDisplayCount" minOccurs="0"/>
+			<xsd:element ref="AP_AuditDisplayCount" minOccurs="0"/>
+			<xsd:element ref="AP_DisplayURL" minOccurs="0"/>
+			<xsd:element ref="AP_CopyStatusMessage" minOccurs="0"/>	
+			<xsd:element ref="AP_TVRInd" minOccurs="0"/>	
+			<xsd:element ref="AP_ReWriteReadOnlyInd" minOccurs="0"/>
+			<xsd:element ref="AP_StatusBeforeWithdraw" minOccurs="0"/>
+			<xsd:element ref="AP_RenlSubmissionRecdInd" minOccurs="0"/>
+			<xsd:element ref="AP_RenewalForms" maxOccurs="1" minOccurs="0"/>
+			<xsd:element ref="FinancialData" minOccurs="0" />
+			<xsd:element ref="PriorYearDataInd" minOccurs="0" />
+			<xsd:element ref="PriorCarrierCopyInd" minOccurs="0" />
+			<xsd:element ref="PriorPolicyXPathCorrectionInd"
+				minOccurs="0" />
+			<xsd:element ref="TotalRevenueClaimAdjuster" minOccurs="0" />
+			<xsd:element ref="TotalGrossReceipts" minOccurs="0" />
+			<xsd:element ref="TotalRevenueMedBillServices"
+				minOccurs="0" />
+			<xsd:element ref="TotalMortgageActivity" minOccurs="0" />
+			<xsd:element ref="TotalGrossAnnualRevenue" minOccurs="0" />
+			<xsd:element ref="TotalRevIntrDesinger" minOccurs="0" />
+			<xsd:element ref="TotalGrossReciptInvestigative"
+				minOccurs="0" />
+			<xsd:element ref="TotalThirdPartyAdministrators"
+				minOccurs="0" />
+			<xsd:element ref="TotalThirdPartyAdministratorsApplicant"
+				minOccurs="0" />
+			<xsd:element ref="MPLAdjDeviation" minOccurs="0" />
+			<xsd:element ref="LPLAdjDeviation" minOccurs="0" />
+			<xsd:element ref="PriorEffectiveDate" minOccurs="0" />
+			<xsd:element ref="AP_PerformerAccountSize" minOccurs="0" />
+			<xsd:element ref="AP_WISubmittedStatus" minOccurs="0" />
+			<xsd:element ref="AP_FinalIssueButtonClicked" minOccurs="0" />
+			<xsd:element ref="AP_FirstVisitIndicator" minOccurs="0" />
+			<xsd:element name="AP_ServiceEFTPaymentMethod"
+				minOccurs="0" />
+			<xsd:element name="AP_ServicePayPlan" minOccurs="0" />
+			<xsd:element name="AP_ServiceDay" minOccurs="0" />
+			<xsd:element ref="AP_StatusBeforeReferral" minOccurs="0" />
+			<xsd:element ref="AP_WIReferralInd" minOccurs="0" />
+			<xsd:element ref="AP_HardRefMsg" minOccurs="0" />
+			<xsd:element ref="AP_HardRefInd" minOccurs="0" />
+			<xsd:element ref="AP_AgentEffDateValidationInd"
+				minOccurs="0" />
+			<xsd:element ref="AP_HardRefSubmitAgentInd" minOccurs="0" />
+			<xsd:element ref="AP_AgntReferralNotes" minOccurs="0" />
+			<xsd:element ref="AP_SoftReferralReviewNotes" minOccurs="0" />
+			<xsd:element ref="AP_HardReferralReviewNotes" minOccurs="0" />
+			<xsd:element ref="AP_PriorPageIdHub" minOccurs="0" />
+			<xsd:element ref="AP_PriorPageIdAgent" minOccurs="0" />
+			<xsd:element ref="AP_EmailAddress" minOccurs="0" />
+			<xsd:element ref="AP_UserId" minOccurs="0" />
+			<xsd:element ref="AP_HardRefRedirectInd" minOccurs="0" />
+			<xsd:element ref="AP_ReinstateRsn" minOccurs="0" />
+			<xsd:element ref="AP_CurrentDocTransType" minOccurs="0" />
+			<xsd:element ref="AP_EffDateChngInd" minOccurs="0" />
+			<xsd:element ref="AP_PageVisitInd" minOccurs="0" />
+			<xsd:element ref="AP_NPPCPageVisitInd" minOccurs="0" />
+			<xsd:element ref="AP_AbuseDefaultInd" minOccurs="0" />
+			<xsd:element ref="AP_FieldHelperInd" minOccurs="0" />			
+			<xsd:element ref="AP_LPLAdjPageInd" minOccurs="0" />			
+			<xsd:element ref="AP_LPLTBDPageInd" minOccurs="0" />
+			<xsd:element ref="AP_PreclaimLimitOption" minOccurs="0" />
+			<xsd:element ref="AP_PreclaimDeductibleOption" minOccurs="0" />
+			<xsd:element ref="AP_PreclaimBindOption" minOccurs="0" />
+			<xsd:element ref="AP_defenseLimitInd" minOccurs="0" />									
+			<xsd:element ref="AP_OriginalDocXSind" minOccurs="0" />
+			<xsd:element ref="AP_LossHistoryFactor" minOccurs="0" />
+			<xsd:element ref="CountyCode" minOccurs="0" />
+			<xsd:element ref="totalCurrentYearReq" minOccurs="0" />
+			<xsd:element ref="setDefaultMailingSection" minOccurs="0" />
+			<xsd:element ref="setDefault" minOccurs="0" />
+			<xsd:element ref="isActiveClassCdDefault" minOccurs="0" />
+			<xsd:element ref="setDefaultSummOfRisk" minOccurs="0" />						
+			<xsd:element ref="TotalEngagementLetters" minOccurs="0" />
+			<xsd:element ref="AP_BindOptnNbr" minOccurs="0" />
+			<xsd:element ref="AP_LPLAOPTrigger" minOccurs="0" />
+			<xsd:element ref="AP_LPLAOPGroupAValue" minOccurs="0" />
+			<xsd:element ref="AP_LPLAOPGroupBValue" minOccurs="0" />
+			<xsd:element ref="AP_LPLAOPGroupCValue" minOccurs="0" />
+			<xsd:element ref="AP_LPLAOPGroupDValue" minOccurs="0" />
+			<xsd:element ref="AP_LPLAOPUniqueId" minOccurs="0" />
+			<xsd:element ref="AP_LPLAOPExists" minOccurs="0" />
+			<xsd:element ref="AP_AEDisciplineExists" minOccurs="0" />
+			<xsd:element ref="AP_LPLModCoverageExists" minOccurs="0" />
+			<xsd:element ref="AP_PMSNonStraightThrough" minOccurs="0" />
+			<xsd:element ref="AP_LPLAOPCmntsCopyInd" minOccurs="0" />
+			<xsd:element ref="AP_DisplayCoverageparts" minOccurs="0" />
+			<xsd:element ref="AP_DOCheck" minOccurs="0" />
+			<xsd:element ref="AP_EPLCheck" minOccurs="0" />
+			<xsd:element ref="AP_FIDUCIARYCheck" minOccurs="0" />
+			<xsd:element ref="AP_CYBERCheck" minOccurs="0" />
+			<xsd:element ref="AP_RunOffInd" minOccurs="0" />
+			<xsd:element ref="AP_RunOffCovgInd" minOccurs="0" />
+			<xsd:element ref="covgMsg" minOccurs="0" />
+			<xsd:element ref="AP_TotalSpecInside" minOccurs="0" />
+			<xsd:element ref="AP_ORGDate" minOccurs="0" />
+			<xsd:element ref="AP_LostReadOnly" minOccurs="0" />
+			<xsd:element ref="AP_StateHidden" minOccurs="0" />
+			<xsd:element ref="AP_InvalidLocationsZipInd" minOccurs="0" />
+			<xsd:element ref="AP_InvalidInsuredAddressZipInd" minOccurs="0" />
+			<xsd:element ref="AP_InvalidInsuredMailAddressZipInd" minOccurs="0" />
+			<xsd:element ref="AP_ALLDTerritoryGroupValue" minOccurs="0" />
+			<xsd:element ref="AP_ALLDPreviousTerritoryGroupValue"
+				minOccurs="0" />
+			<xsd:element ref="AP_ALLDPrimaryTerritory" minOccurs="0" />
+			<xsd:element ref="AP_ALLDSharedPhysicianCount"
+				minOccurs="0" />
+			<xsd:element ref="AP_ALLDExcessPrevExistInd" minOccurs="0" />
+			<xsd:element ref="AP_ExcessFullPolicyNumber" minOccurs="0" />
+			<xsd:element ref="TotalApplicantServices" minOccurs="0" />
+			<xsd:element ref="TotalPatients" minOccurs="0" />
+			<xsd:element ref="TotalHospice" minOccurs="0" />
+			<xsd:element ref="AP_CancelCheckBoxSelected" minOccurs="0" />
+			<xsd:element ref="AP_ReinstateCheckBoxSelected" minOccurs="0" />
+			<xsd:element ref="AP_ExcessPurgeIndEndorse" minOccurs="0" />
+			<xsd:element ref="AP_ExcessPurgeIndRewrite" minOccurs="0" />
+			<xsd:element ref="AP_ExcessPurgeIndCancel" minOccurs="0" />
+			<xsd:element ref="AP_XSExists" minOccurs="0" />
+			<xsd:element ref="AP_TotalApplicatType" minOccurs="0" />
+			<xsd:element ref="TotalApplicatType" minOccurs="0" />
+			<xsd:element ref="BehaviorHealth" minOccurs="0"/>
+			<xsd:element ref="AP_DisplayPLPremAdj" minOccurs="0"/>
+			<xsd:element ref="TransSummaryBillName" minOccurs="0" />
+			<xsd:element ref="TransSummaryBillAddr1" minOccurs="0" />
+			<xsd:element ref="TransSummaryBillAddr2" minOccurs="0" />
+			<xsd:element ref="MailingDefaultInd" minOccurs="0" />
+			<xsd:element ref="MailingAddrReqInd" minOccurs="0" />
+			<xsd:element ref="AppInfoFirstTimeVisitInd" minOccurs="0" />
+			<xsd:element ref="renwlExpDateChangeInd" minOccurs="0" />
+			
+			<xsd:element name="AP_XSLmt1" minOccurs="0" />
+			<xsd:element name="AP_XSLmt2" minOccurs="0" />
+			<xsd:element name="AP_XSLmt3" minOccurs="0" />
+			<xsd:element name="AP_XSLmt4" minOccurs="0" />
+			<xsd:element name="AP_XSLmt5" minOccurs="0" />
+			<xsd:element name="AP_XSLmt6" minOccurs="0" />
+			<xsd:element name="AP_UndrlyngPLLmt1" minOccurs="0" />
+			<xsd:element name="AP_UndrlyngPLLmt2" minOccurs="0" />
+			<xsd:element name="AP_UndrlyngPLLmt3" minOccurs="0" />
+			<xsd:element name="AP_UndrlyngPLLmt4" minOccurs="0" />
+			<xsd:element name="AP_UndrlyngPLLmt5" minOccurs="0" />
+			<xsd:element name="AP_UndrlyngPLLmt6" minOccurs="0" />
+			<xsd:element name="AP_ALLDphyAbuseLmt1" minOccurs="0" />
+			<xsd:element name="AP_ALLDphyAbuseLmt2" minOccurs="0" />
+			<xsd:element name="AP_ALLDphyAbuseLmt3" minOccurs="0" />
+			<xsd:element name="AP_ALLDphyAbuseLmt4" minOccurs="0" />
+			<xsd:element name="AP_ALLDphyAbuseLmt5" minOccurs="0" />
+			<xsd:element name="AP_ALLDphyAbuseLmt6" minOccurs="0" />
+			<xsd:element name="AP_ALLDPLCheck" minOccurs="0" />
+			<xsd:element name="AP_ALLDGLCheck" minOccurs="0" />
+			<xsd:element name="AP_ALLDXSCheck" minOccurs="0" />
+			<xsd:element name="AP_ALLDPRIVREGCheck" minOccurs="0" />
+			<xsd:element name="AP_ALLDPHYABUSCheck" minOccurs="0" />
+			<xsd:element name="AP_ALLDEBLCheck" minOccurs="0" />
+			<xsd:element name="AP_PolicySummPageSaved" minOccurs="0" />
+			<xsd:element name="AP_XSWaived" minOccurs="0" />
+			
+			<xsd:element name="AP_GLLimitValue01Ind" minOccurs="0" />
+			<xsd:element name="AP_GLLimitValue02Ind" minOccurs="0" />
+			<xsd:element name="AP_GLLimitValue03Ind" minOccurs="0" />
+			<xsd:element name="AP_GLLimitValue04Ind" minOccurs="0" />
+			<xsd:element name="AP_GLLimitValue05Ind" minOccurs="0" />
+			<xsd:element name="AP_GLLimitValue06Ind" minOccurs="0" />
+			
+			<xsd:element name="AP_GLRetentionValue01Ind" minOccurs="0" />
+			<xsd:element name="AP_GLRetentionValue02Ind" minOccurs="0" />
+			<xsd:element name="AP_GLRetentionValue03Ind" minOccurs="0" />
+			<xsd:element name="AP_GLRetentionValue04Ind" minOccurs="0" />
+			<xsd:element name="AP_GLRetentionValue05Ind" minOccurs="0" />
+			<xsd:element name="AP_GLRetentionValue06Ind" minOccurs="0" />
+			
+			<xsd:element name="AP_GLDeductibleValue01Ind" minOccurs="0" />
+			<xsd:element name="AP_GLDeductibleValue02Ind" minOccurs="0" />
+			<xsd:element name="AP_GLDeductibleValue03Ind" minOccurs="0" />
+			<xsd:element name="AP_GLDeductibleValue04Ind" minOccurs="0" />
+			<xsd:element name="AP_GLDeductibleValue05Ind" minOccurs="0" />
+			<xsd:element name="AP_GLDeductibleValue06Ind" minOccurs="0" />
+			
+			<xsd:element name="IsManuallyUpdated" minOccurs="0" />
+			<xsd:element name="AP_AEGrossBillingCurYear" minOccurs="0" />
+			<xsd:element name="AP_AESelectedYearValid" minOccurs="0" />
+			<xsd:element name="AP_RatableBillngChngd" minOccurs="0" />
+			<xsd:element name="AP_TriggerRating" minOccurs="0" />
+			
+			<xsd:element name="AP_AECyberIndicator" minOccurs="0" />
+			<xsd:element name="AP_InsuredCityHidden" minOccurs="0" />
+			<xsd:element name="AP_BillingCityHidden" minOccurs="0" />
+			<xsd:element name="AP_BindBillingCityHidden" minOccurs="0" />
+			
+			<xsd:element name="AP_BillName" minOccurs="0" />
+			<xsd:element name="AP_Addr1" minOccurs="0" />
+			<xsd:element name="AP_Addr2" minOccurs="0" />
+			<xsd:element name="AP_City" minOccurs="0" />
+			<xsd:element name="AP_StateProvCd" minOccurs="0" />
+			<xsd:element name="AP_PostalCode" minOccurs="0" />
+			<xsd:element name="AP_SelectedBillingHidden" minOccurs="0" />
+			<xsd:element name="AP_PDCount" minOccurs="0" />
+			<xsd:element name="AP_PrdctCd" minOccurs="0" />
+			<xsd:element name="AP_PCNPLink1" minOccurs="0" />
+			<xsd:element name="AP_PCNPLink2" minOccurs="0" />
+			<xsd:element name="AP_PCNPLink3" minOccurs="0" />
+			<xsd:element name="AP_PCNPLink4" minOccurs="0" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="AP_GrossBillings_Type">
+		<xsd:sequence>
+			<xsd:element name="inclInAvg1" minOccurs="0"/>
+			<xsd:element name="Year1" minOccurs="0"/>
+			<xsd:element name="grossBillings1" minOccurs="0"/>
+			<xsd:element name="percntgDiffrnce1" minOccurs="0"/>
+			<xsd:element name="DBGBs1" minOccurs="0"/>
+			<xsd:element name="DBCVs1" minOccurs="0"/>
+			<xsd:element name="DBFactor1" minOccurs="0"/>
+			<xsd:element name="ConvrtdDBCVGBs1" minOccurs="0"/>
+			<xsd:element name="constOnly1" minOccurs="0"/>
+			<xsd:element name="CVFactor1" minOccurs="0"/>
+			<xsd:element name="convrtdCVGBs1" minOccurs="0"/>
+			<xsd:element name="CVs1" minOccurs="0"/>
+			<xsd:element name="totlGrossBilngs1" minOccurs="0"/>			
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="FinancialData" type="FinancialData_Type" />
+	<xsd:element name="PriorYearDataInd" type="String-ID" />
+	<xsd:element name="PriorCarrierCopyInd" type="String-ID" />
+	<xsd:element name="PriorPolicyXPathCorrectionInd" type="String-ID" />
+	<xsd:element name="TotalRevenueClaimAdjuster" type="String-ID" />
+	<xsd:element name="TotalGrossReceipts" type="String-ID" />
+	<xsd:element name="TotalRevenueMedBillServices" type="String-ID" />
+	<xsd:element name="TotalMortgageActivity" type="String-ID" />
+	<xsd:element name="TotalGrossAnnualRevenue" type="String-ID" />
+	<xsd:element name="TotalRevIntrDesinger" type="String-ID" />
+	<xsd:element name="TotalGrossReciptInvestigative" type="String-ID" />
+	<xsd:element name="TotalThirdPartyAdministrators" type="String-ID" />
+	<xsd:element name="TotalThirdPartyAdministratorsApplicant" type="String-ID" />
+	<xsd:element name="MPLAdjDeviation" type="String-ID" />
+	<xsd:element name="LPLAdjDeviation" type="String-ID" />
+	<xsd:element name="PriorEffectiveDate" type="String-ID" />
+	<xsd:element name="AP_PerformerAccountSize" type="String-ID"/>
+	<xsd:element name="AP_HardRefRedirectInd" type="String-ID"/>
+	<xsd:element name="CountyCode" type="String-ID" />
+	<xsd:element name="AP_ReinstateRsn" type="String-ID"/>
+	<xsd:element name="AP_CurrentDocTransType" type="String-ID"/>
+	<xsd:element name="AP_EffDateChngInd" type="String-ID"/>
+	<xsd:element name="AP_PageVisitInd" type="String-ID"/>
+	<xsd:element name="AP_NPPCPageVisitInd" type="String-ID"/>
+	<xsd:element name="AP_AbuseDefaultInd" type="String-ID"/>
+	<xsd:element name="AP_FieldHelperInd" type="String-ID"/>	
+	<xsd:element name="AP_LPLAdjPageInd" type="String-ID"/>	
+	<xsd:element name="AP_LPLTBDPageInd" type="String-ID"/>	
+	<xsd:element name="AP_PreclaimLimitOption" type="String-ID"/>
+	<xsd:element name="AP_PreclaimDeductibleOption" type="String-ID"/>
+	<xsd:element name="AP_PreclaimBindOption" type="String-ID"/>
+	<xsd:element name="AP_defenseLimitInd" type="String-ID"/>								
+	<xsd:element name="AP_OriginalDocXSind" type="String-ID"/>	
+	<xsd:element name="AP_DisplayCoverageparts" type="String-ID" />
+	<xsd:element name="totalCurrentYearReq" type="String-ID"/>
+	<xsd:element name="setDefault" type="String-ID" />
+	<xsd:element name="isActiveClassCdDefault" type="String-ID" />
+	<xsd:element name="setDefaultSummOfRisk" type="String-ID" />		
+	<xsd:element name="TotalEngagementLetters" type="String-ID" />
+	<xsd:element name="AP_DOCheck" type="String-ID" />
+	<xsd:element name="AP_EPLCheck" type="String-ID" />
+	<xsd:element name="AP_FIDUCIARYCheck" type="String-ID" />
+	<xsd:element name="AP_CYBERCheck" type="String-ID" />
+	<xsd:element name="AP_RunOffInd" type="String-ID" />
+	<xsd:element name="AP_RunOffCovgInd" type="String-ID" />
+	<xsd:element name="setDefaultMailingSection" type="String-ID" />
+	<xsd:element name="covgMsg" type="String-ID" />
+	<xsd:element name="AP_ORGDate" type="String-ID" />
+	<xsd:element name="AP_LostReadOnly" type="String-ID" />
+	<xsd:element name="AP_StateHidden" type="String-ID" />
+	<xsd:element name="AP_InvalidLocationsZipInd" type="String-ID" />
+	<xsd:element name="AP_InvalidInsuredAddressZipInd" type="String-ID" />
+	<xsd:element name="AP_InvalidInsuredMailAddressZipInd" type="String-ID" />
+	<xsd:element name="TotalApplicantServices" type="String-ID" />
+	<xsd:element name="TotalPatients" type="String-ID" />
+	<xsd:element name="TotalHospice" type="String-ID" />
+	<xsd:element name="AP_CancelCheckBoxSelected" type="String-ID" />
+	<xsd:element name="AP_ReinstateCheckBoxSelected" type="String-ID" />
+	<xsd:element name="AP_ExcessPurgeIndEndorse" type="String-ID" />
+	<xsd:element name="AP_ExcessPurgeIndRewrite" type="String-ID" />	
+	<xsd:element name="AP_ExcessPurgeIndCancel" type="String-ID" />		
+	<xsd:element name="AP_XSExists" type="String-ID" />
+	<xsd:element name="AP_TotalApplicatType" type="String-ID" />
+	<xsd:element name="TotalApplicatType" type="String-ID" />
+	<xsd:element name="BehaviorHealth" type="String-ID"/>
+	<xsd:element name="AP_DisplayPLPremAdj" type="String-ID"/>
+	<xsd:element name="AP_XSLmt1" type="String-ID" />
+	<xsd:element name="AP_XSLmt2" type="String-ID" />
+	<xsd:element name="AP_XSLmt3" type="String-ID" />
+	<xsd:element name="AP_XSLmt4" type="String-ID" />
+	<xsd:element name="AP_XSLmt5" type="String-ID" />
+	<xsd:element name="AP_XSLmt6" type="String-ID" />
+	<xsd:element name="AP_AEGrossBillingCurYear" type="String-ID" />
+	<xsd:element name="AP_AESelectedYearValid" type="String-ID" />
+	<xsd:element name="AP_RatableBillngChngd" type="String-ID" />
+	<xsd:element name="AP_TriggerRating" type="String-ID" />
+	<xsd:element name="TransSummaryBillName" type="String-ID" />
+	<xsd:element name="TransSummaryBillAddr1" type="String-ID" />
+	<xsd:element name="TransSummaryBillAddr2" type="String-ID" />
+	<xsd:element name="MailingDefaultInd" type="String-ID" />
+	<xsd:element name="MailingAddrReqInd" type="String-ID" />
+	<xsd:element name="AppInfoFirstTimeVisitInd" type="String-ID" />
+	<xsd:element name="renwlExpDateChangeInd" type="String-ID" />
+	
+	<xsd:element name="AP_UndrlyngPLLmt1" type="String-ID" />
+	<xsd:element name="AP_UndrlyngPLLmt2" type="String-ID" />
+	<xsd:element name="AP_UndrlyngPLLmt3" type="String-ID" />
+	<xsd:element name="AP_UndrlyngPLLmt4" type="String-ID" />
+	<xsd:element name="AP_UndrlyngPLLmt5" type="String-ID" />
+	<xsd:element name="AP_UndrlyngPLLmt6" type="String-ID" />
+	<xsd:element name="AP_ALLDphyAbuseLmt1" type="String-ID" />
+	<xsd:element name="AP_ALLDphyAbuseLmt2" type="String-ID" />
+	<xsd:element name="AP_ALLDphyAbuseLmt3" type="String-ID" />
+	<xsd:element name="AP_ALLDphyAbuseLmt4" type="String-ID" />
+	<xsd:element name="AP_ALLDphyAbuseLmt5" type="String-ID" />
+	<xsd:element name="AP_ALLDphyAbuseLmt6" type="String-ID" />
+	<xsd:element name="AP_ALLDPLCheck" type="String-ID" />
+	<xsd:element name="AP_ALLDGLCheck" type="String-ID" />
+	<xsd:element name="AP_ALLDXSCheck" type="String-ID" />
+	<xsd:element name="AP_ALLDPRIVREGCheck" type="String-ID" />
+	<xsd:element name="AP_ALLDPHYABUSCheck" type="String-ID" />
+	<xsd:element name="AP_ALLDEBLCheck" type="String-ID" />
+	<xsd:element name="AP_PolicySummPageSaved" type="String-ID" />
+	<xsd:element name="AP_XSWaived" type="String-ID" />
+	
+	<xsd:element name="AP_GLLimitValue01Ind" type="String-ID" />
+	<xsd:element name="AP_GLLimitValue02Ind" type="String-ID" />
+	<xsd:element name="AP_GLLimitValue03Ind" type="String-ID" />
+	<xsd:element name="AP_GLLimitValue04Ind" type="String-ID" />
+	<xsd:element name="AP_GLLimitValue05Ind" type="String-ID" />
+	<xsd:element name="AP_GLLimitValue06Ind" type="String-ID" />
+	
+	<xsd:element name="AP_GLRetentionValue01Ind" type="String-ID" />
+	<xsd:element name="AP_GLRetentionValue02Ind" type="String-ID" />
+	<xsd:element name="AP_GLRetentionValue03Ind" type="String-ID" />
+	<xsd:element name="AP_GLRetentionValue04Ind" type="String-ID" />
+	<xsd:element name="AP_GLRetentionValue05Ind" type="String-ID" />
+	<xsd:element name="AP_GLRetentionValue06Ind" type="String-ID" />
+	
+	<xsd:element name="AP_GLDeductibleValue01Ind" type="String-ID" />
+	<xsd:element name="AP_GLDeductibleValue02Ind" type="String-ID" />
+	<xsd:element name="AP_GLDeductibleValue03Ind" type="String-ID" />
+	<xsd:element name="AP_GLDeductibleValue04Ind" type="String-ID" />
+	<xsd:element name="AP_GLDeductibleValue05Ind" type="String-ID" />
+	<xsd:element name="AP_GLDeductibleValue06Ind" type="String-ID" />
+	<xsd:element name="IsManuallyUpdated" type="String-ID" />
+	
+	<xsd:element name="AP_AECyberIndicator" type="String-ID" />
+	<xsd:element name="AP_InsuredCityHidden" type="String-ID" />
+	<xsd:element name="AP_BillingCityHidden" type="String-ID" />
+	<xsd:element name="AP_BindBillingCityHidden" type="String-ID" />
+	
+	<xsd:element name="AP_BillName" type="String-ID" />
+	<xsd:element name="AP_Addr1" type="String-ID" />
+	<xsd:element name="AP_Addr2" type="String-ID" />
+	<xsd:element name="AP_City" type="String-ID" />
+	<xsd:element name="AP_StateProvCd" type="String-ID" />
+	<xsd:element name="AP_PostalCode" type="String-ID" />
+	<xsd:element name="AP_SelectedBillingHidden" type="String-ID" />
+	<xsd:element name="AP_PDCount" type="String-ID" />
+	<xsd:element name="AP_PrdctCd" type="String-ID" />	
+	<xsd:element name="AP_PCNPLink1" type="String-ID" />
+	<xsd:element name="AP_PCNPLink2" type="String-ID" />
+	<xsd:element name="AP_PCNPLink3" type="String-ID" />
+	<xsd:element name="AP_PCNPLink4" type="String-ID" /> 
+	
+	<xsd:complexType name="FinancialData_Type">
+		<xsd:sequence>
+			<xsd:element ref="CashAmount" />
+			<xsd:element ref="AccountsReceivable" />
+			<xsd:element ref="Inventories" />
+			<xsd:element ref="CurrentAssets" />
+			<xsd:element ref="TotalAssets" />
+			<xsd:element ref="AccountsPayable" />
+			<xsd:element ref="CurrentLiabilities" />
+			<xsd:element ref="LongTermDebt" />
+			<xsd:element ref="TotalLiabilities" />
+			<xsd:element ref="RetainedEarnings" />
+			<xsd:element ref="ShareholdersEquity" />
+			<xsd:element ref="WorkingCapital" />
+			<xsd:element ref="RevenuesSales" />
+			<xsd:element ref="CostOfGoodsSold" />
+			<xsd:element ref="GrossProfit" />
+			<xsd:element ref="GrossMarginAmountPct" />
+			<xsd:element ref="SGAAmount" />
+			<xsd:element ref="OperatingProfit" />
+			<xsd:element ref="OperatingMarginAmountPct" />
+			<xsd:element ref="InterestExpense" />
+			<xsd:element ref="Ebitda" />
+			<xsd:element ref="NetIncome" />
+			<xsd:element ref="DepreciationAmount" />
+			<xsd:element ref="OperatingActivities" />
+			<xsd:element ref="InvestingActivities" />
+			<xsd:element ref="FinancingActivities" />
+			<xsd:element ref="PrivateZScore" />
+			<xsd:element ref="CurrentRatio" />
+			<xsd:element ref="QuickRatio" />
+			<xsd:element ref="LTDToEquity" />
+			<xsd:element ref="CapitalizationRatio" />
+			<xsd:element ref="TotalDebtOrAssets" />
+			<xsd:element ref="InterestCovRatio" />
+			<xsd:element ref="ReceivableTurnover" />
+			<xsd:element ref="InventoryTurnover" />
+			<xsd:element ref="CashAmountPct" />
+			<xsd:element ref="AccountsReceivableAmountPct" />
+			<xsd:element ref="InventoriesPct" />
+			<xsd:element ref="CurrentAssestAmountPct" />
+			<xsd:element ref="AccountsPayableAmountPct" />
+			<xsd:element ref="CurrentLiableAmountPct" />
+			<xsd:element ref="LongTermDebtAmountPct" />
+			<xsd:element ref="TotalLiabilityAmountPct" />
+			<xsd:element ref="RetainedEarningAmountPct" />
+			<xsd:element ref="ShareholderEquityPct" />
+			<xsd:element ref="CostOfGoodsSoldPct" />
+			<xsd:element ref="GrossProfitPct" />
+			<xsd:element ref="SGAAmountPct" />
+			<xsd:element ref="OperatingProfitAmountPct" />
+			<xsd:element ref="InterestExpenseAmountPct" />
+			<xsd:element ref="NetIncomeAmountPct" />
+			<xsd:element ref="RenewalHeader" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:element name="AP_PerformerAssignment" type="AP_PerformerAssignment_Type"/>
+	<xsd:complexType name="AP_PerformerAssignment_Type">
+		<xsd:sequence>
+			<xsd:element ref="Underwriter"/>
+			<xsd:element ref="UnderwriterAssistant"/>
+			<xsd:element ref="Rater"/>
+			<xsd:element ref="ProcessSupport"/>
+			<xsd:element ref="ForceReassignmentInd" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:element name="AP_UnderwriterReferral" type="AP_UnderwriterReferral_Type"/>
+	<xsd:complexType name="AP_UnderwriterReferral_Type">
+		<xsd:sequence>
+			<xsd:element ref="ReferralType"/>
+			<xsd:element ref="ReferralReason"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="AP_FormIterationCounters" type="AP_FormIterationCounters_Type"/>
+	<xsd:element name="Ap_FormsIterationNumber" type="xsd:string"/>
+	<xsd:complexType name="AP_FormIterationCounters_Type">
+		<xsd:sequence>
+			<xsd:element ref="Ap_FormsIterationNumber" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="AP_PackageType" type="String-ID"/>
+	<xsd:element name="AP_PackageRqType" type="String-ID"/>
+	<xsd:element name="AP_CMURL" type="String-ID"/>
+	<xsd:element name="AP_LobIndicators" type="AP_LobIndicators_Type"/>
+	<xsd:element name="DO_indicator" type="xsd:boolean"/>
+	<xsd:element name="DO_required_indicator" type="xsd:boolean"/>
+	<xsd:element name="EPLI_indicator" type="xsd:boolean"/>
+	<xsd:element name="FIDUC_indicator" type="xsd:boolean"/>
+	<xsd:element name="CRIM_indicator" type="xsd:boolean"/>
+	<xsd:element name="Cyber_indicator" type="xsd:boolean"/>
+	<xsd:element name="KIDRA_indicator" type="xsd:boolean"/>
+	<xsd:element name="MPL_indicator" type="xsd:boolean"/>
+	<xsd:element name="LPL_indicator" type="xsd:boolean"/>
+    <xsd:element name="AE_indicator" type="xsd:boolean"/>
+	<xsd:element name="AP_PMSCodingInd" type="xsd:boolean"/>
+	<xsd:element name="AP_ChangesImpactPMSInd" type="xsd:boolean"/>
+	<!-- PRIVATE COMPANY EXTENSIONS -->
+	<xsd:element name="AP_DetailSvcFailedInd" type="xsd:boolean"/>
+	<xsd:element name="AP_DetailSvcInvalidInd" type="xsd:boolean"/>
+	<xsd:element name="AP_RatingChecksum" type="String-ID"/>
+	<xsd:element name="AP_ProducerPcsCode" type="String-ID"/>
+	<xsd:element name="AP_UserGroupId" type="String-ID"/>
+	<xsd:element name="AP_BusinessUsage" type="String-ID"/>
+	<xsd:element name="AP_NumberOfFormsToAdd" type="String-ID"/>
+	<xsd:element name="AP_CoverageInd" type="xsd:boolean"/>	
+	<xsd:element name="AP_FileName" type="String-ID"/>
+	<xsd:element name="AP_ManuscriptName" type="String-ID"/>
+	<xsd:element name="AP_ManuscriptNumber" type="String-ID"/>
+	<xsd:element name="AP_ManuscriptEditionDate" type="String-ID"/>
+	<xsd:element name="AP_FormInForceInd" type="String-ID"/>
+	
+	<xsd:element name="CashAmount" type="String-ID" />	
+	<xsd:element name="AccountsReceivable" type="String-ID" />
+	<xsd:element name="Inventories" type="String-ID"/>
+	<xsd:element name="CurrentAssets" type="String-ID"/>
+	<xsd:element name="TotalAssets" type="String-ID"/>
+	<xsd:element name="AccountsPayable" type="String-ID"/>
+	<xsd:element name="CurrentLiabilities" type="String-ID"/>
+	<xsd:element name="LongTermDebt" type="String-ID"/>
+	<xsd:element name="TotalLiabilities" type="String-ID"/>
+	<xsd:element name="RetainedEarnings" type="String-ID"/>
+	<xsd:element name="ShareholdersEquity" type="String-ID"/>
+	<xsd:element name="WorkingCapital" type="String-ID" />
+	<xsd:element name="RevenuesSales" type="String-ID"/>
+	<xsd:element name="CostOfGoodsSold" type="String-ID"/>
+	<xsd:element name="GrossProfit" type="String-ID"/>
+	<xsd:element name="GrossMarginAmountPct" type="String-ID"/>
+	<xsd:element name="SGAAmount" type="String-ID"/>
+	<xsd:element name="OperatingProfit" type="String-ID"/>
+	<xsd:element name="OperatingMarginAmountPct" type="String-ID"/>
+	<xsd:element name="InterestExpense" type="String-ID"/>
+	<xsd:element name="Ebitda" type="String-ID"/>
+	<xsd:element name="NetIncome" type="String-ID"/>
+	<xsd:element name="DepreciationAmount" type="String-ID"/>
+	<xsd:element name="OperatingActivities" type="String-ID"/>
+	<xsd:element name="InvestingActivities" type="String-ID"/>
+	<xsd:element name="FinancingActivities" type="String-ID"/>
+	<xsd:element name="PrivateZScore" type="String-ID"/>
+	<xsd:element name="CurrentRatio" type="String-ID"/>
+	<xsd:element name="QuickRatio" type="String-ID"/>
+	<xsd:element name="LTDToEquity" type="String-ID" />
+	<xsd:element name="CapitalizationRatio" type="String-ID"/>
+	<xsd:element name="TotalDebtOrAssets" type="String-ID"/>
+	<xsd:element name="InterestCovRatio" type="String-ID"/>
+	<xsd:element name="ReceivableTurnover" type="String-ID"/>
+	<xsd:element name="InventoryTurnover" type="String-ID"/>
+	<xsd:element name="CashAmountPct" type="String-ID"/>
+	<xsd:element name="AccountsReceivableAmountPct" type="String-ID"/>
+	<xsd:element name="InventoriesPct" type="String-ID"/>
+	<xsd:element name="CurrentAssestAmountPct" type="String-ID"/>
+	<xsd:element name="AccountsPayableAmountPct" type="String-ID"/>
+	<xsd:element name="CurrentLiableAmountPct" type="String-ID"/>
+	<xsd:element name="LongTermDebtAmountPct" type="String-ID"/>
+	<xsd:element name="TotalLiabilityAmountPct" type="String-ID"/>
+	<xsd:element name="RetainedEarningAmountPct" type="String-ID"/>
+	<xsd:element name="ShareholderEquityPct" type="String-ID"/>
+	<xsd:element name="CostOfGoodsSoldPct" type="String-ID"/>
+	<xsd:element name="GrossProfitPct" type="String-ID"/>
+	<xsd:element name="SGAAmountPct" type="String-ID"/>
+	<xsd:element name="OperatingProfitAmountPct" type="String-ID"/>
+	<xsd:element name="InterestExpenseAmountPct" type="String-ID"/>
+	<xsd:element name="NetIncomeAmountPct" type="String-ID"/>
+	<xsd:element name="RenewalHeader" type="String-ID"/>
+	
+	<!-- Marked for removal: no longer used 2/26/2015 -->
+	<xsd:element name="AP_FormActiveInd" type="String-ID"/>
+	<xsd:element name="AP_FormActiveReadOnly" type="String-ID"/>
+	<xsd:element name="AP_TransactionList" type="String-ID"/>
+	<!-- Marked for removal: no longer used 2/26/2015 -->
+	<xsd:element name="AP_TypeOfForm" type="String-ID"/>
+	<xsd:element name="AP_SublimitInd" type="String-ID"/>
+	<xsd:element name="AP_OptionGUID" type="String-ID"/>
+	<xsd:element name="AP_PMSPremium" type="String-ID"/>
+	<xsd:element name="AP_PMSNetChangeAmt" type="String-ID"/>
+	<xsd:element name="AP_ThirdPartyQuestionsCount" type="String-ID"/>
+	<xsd:element name="AP_BackupQuestionsCount" type="String-ID"/>
+	<xsd:element name="AP_InfoSecurityQuestionsCount" type="String-ID"/>
+	<xsd:element name="AP_BusContinuityQuestionsCount" type="String-ID"/>
+	<xsd:element name="AP_TypeBureau" type="String-ID"/>
+	<xsd:element name="AP_TmpPaths" type="AP_TmpPaths_Type"/>
+	<xsd:element name="TmpXPath1" type="String-ID"/>
+	<xsd:element name="TmpXPath2" type="String-ID"/>
+	<xsd:element name="TmpXPath3" type="String-ID"/>
+	<xsd:element name="TmpXPath4" type="String-ID"/>
+	<xsd:element name="TmpXPath5" type="String-ID"/>
+	<xsd:element name="TmpXPath6" type="String-ID"/>
+	
+	<xsd:element name="Underwriter" type="String-ID"/>
+	<xsd:element name="UnderwriterAssistant" type="String-ID"/>
+	<xsd:element name="Rater" type="String-ID"/>
+	<xsd:element name="ProcessSupport" type="String-ID"/>
+	<xsd:element name="ForceReassignmentInd" type="xsd:boolean"/>
+	
+	<xsd:element name="ReferralReason" type="String-ID"/>
+	<xsd:element name="ReferralType" type="String-ID"/>
+	
+	<xsd:element name="AP_ReferralInd" type="xsd:boolean"/> 
+	<xsd:element name="AP_QPPToAgentInd" type="xsd:boolean"/>
+	<xsd:element name="AP_BindInd" type="xsd:boolean"/>
+	<xsd:element name="AP_TempPolicyVersion" type="String-ID"/>
+	<xsd:element name="AP_PolicyModeValues" type="String-ID"/>
+	<xsd:element name="AP_PCComment" type="xsd:string"/>
+	<xsd:element name="AP_Aggregate" type="xsd:string"/>
+	<xsd:element name="AP_PackageFinalInd" type="String-ID"/>
+	<xsd:element name="AP_AlldExcessDecPkg" type="String-ID"/>
+	<xsd:element name="AP_PackageTypeInd" type="String-ID"/>
+	<xsd:element name="AP_FullPolicyNumber" type="String-ID"/>
+	<xsd:element name="AP_YearsInBusinessRange" type="String-ID"/>
+	<xsd:element name="AP_MPLYearsInBusinessRange" type="String-ID"/>
+	<xsd:element name="AP_LPLYearsInBusinessRange" type="String-ID"/>
+	<xsd:element name="AP_AEYearsInBusinessRange" type="String-ID"/>
+	<xsd:element name="AP_PRFactor" type="String-ID"/>
+	<xsd:element name="AP_SRFactor" type="String-ID"/>
+	<xsd:element name="AP_DuplicateInd" type="xsd:string"/>
+	<xsd:element name="AP_DuplicateIndHidden" type="xsd:string"/>
+	<xsd:element name="AP_LatestPolicyImage" type="xsd:string"/>
+	<xsd:element name="AP_SICCd" type="C-255"/>
+	<xsd:element name="AP_DisplayState" type="xsd:boolean"/>
+	<xsd:element name="AP_TotalSpecInside" type="xsd:boolean"/>
+	<xsd:element name="AP_AdjustmentId" type="String-ID"/> 
+	<xsd:element name="AP_GeninfoId" type="String-ID"/>
+	<xsd:element name="AP_GenerateQPPSubmittedInd" type="xsd:boolean"/>	
+	<xsd:element name="AP_OutputType" type="xsd:string"/>
+	<xsd:element name="AP_EndorsementReWriteInd" type="xsd:boolean"/>
+	<xsd:element name="AP_IssueInd" type="xsd:boolean"/>
+	<xsd:element name="AP_PMSRewriteCodingInd" type="xsd:boolean"/>	
+	<xsd:element name="AP_PMSCancelCodingInd" type="xsd:boolean"/>
+	<xsd:element name="AP_DisplayPMSRewriteCodingInd" type="xsd:boolean"/>	
+	<xsd:element name="AP_DisplayPMSCancelCodingInd" type="xsd:boolean"/>
+	<xsd:element name="AP_TVRInd" type="xsd:boolean"/>
+	<xsd:element name="AP_ReWriteReadOnlyInd" type="xsd:boolean"/>
+	<xsd:element name="AP_StatusBeforeWithdraw" type ="xsd:string"/>
+	<xsd:element name="AP_PremiumWaivedInd" type="xsd:boolean"/>
+	<xsd:element name="AP_DisplayPremiumWaived" type="String-ID"/>
+	<xsd:element name="AP_RatingStateFlag" type="xsd:string"/>
+    <xsd:element name="AP_UserDataElection" type="String-ID"/>
+	<xsd:element name="AP_TotalEndTaxSurcharge" type="String-ID"/>
+	<xsd:element name="AP_DOEPLFLCybPrem_Ind" type="xsd:boolean"/>
+	<xsd:element name="AP_RenlSubmissionRecdInd" type="xsd:boolean"/>
+	<xsd:element name="AP_DisplayReturnPremium" type="String-ID"/>
+	<xsd:element name="Cyber_EligibleInd" type="xsd:boolean"/>
+	<xsd:element name="AP_RiskState" type="xsd:string"/>
+	<xsd:element name="AP_RetroactiveDate" type="String-ID"/>
+	<xsd:element name="AP_LPLCyberDeductible" type="String-ID"/>
+		<xsd:element name="AP_AECyberDeductible" type="String-ID"/>
+	<xsd:element name="AP_LPLCyberRetroactiveDate" type="String-ID"/>
+	<xsd:element name="AP_AECyberRetroactiveDate" type="String-ID"/>
+	<xsd:element name="AP_CyberExposure" type="String-ID"/>
+	<xsd:element name="AP_MPLExposure" type="String-ID"/>
+	<xsd:element name="AP_LPLExposure" type="String-ID"/>
+	<xsd:element name="AP_AEExposure" type="String-ID"/>
+	<xsd:element name="AP_ReOrderFormsRenRewr" type="xsd:string"/>
+	<xsd:element name="AP_FormItalicsIgnoreBindOptnNbr" type="xsd:string"/>
+	<xsd:element name="AP_IsPreviousTransactionRenewal" type="xsd:string"/>
+	<xsd:element name="AP_MonolineCrimeEndoTrans" type="xsd:string"/>
+	<xsd:element name="AP_OriginalPremiumNB" type="xsd:string"/>
+	<xsd:element name="AP_PolicySymbolForRewriteOnRenwal" type="xsd:string"/>
+	<xsd:element name="AP_LPLAOPTrigger" type="String-ID"/>
+	<xsd:element name="AP_LPLAOPGroupAValue" type="String-ID"/>
+	<xsd:element name="AP_LPLAOPGroupBValue" type="String-ID"/>
+	<xsd:element name="AP_LPLAOPGroupCValue" type="String-ID"/>
+	<xsd:element name="AP_LPLAOPGroupDValue" type="String-ID"/>
+	<xsd:element name="AP_LPLAOPUniqueId" type="String-ID"/>
+	<xsd:element name="AP_LPLAOPExists" type="String-ID"/>
+	<xsd:element name="AP_AEDisciplineExists" type="String-ID"/>
+	<xsd:element name="AP_LPLModCoverageExists" type="String-ID"/>
+	<xsd:element name="AP_PMSNonStraightThrough" type="String-ID"/>
+	<xsd:element name="AP_LPLAOPCmntsCopyInd" type="String-ID"/>
+	<xsd:element name="AP_ALLDTerritoryGroupValue" type="String-ID"/>
+	<xsd:element name="AP_ALLDPreviousTerritoryGroupValue" type="String-ID"/>
+	<xsd:element name="AP_ALLDPrimaryTerritory" type="String-ID" />
+	<xsd:element name="AP_ALLDSharedPhysicianCount" type="String-ID"/>
+	<xsd:element name="AP_ALLDExcessPrevExistInd" type="String-ID"/>
+	<xsd:element name="AP_ExcessFullPolicyNumber" type="String-ID"/>
+	<xsd:complexType name="String-ID">
+		<xsd:simpleContent>
+			<xsd:extension base="xsd:string">
+				<xsd:attribute name="id" type="ID"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+		
+	<xsd:simpleType name="AP_Type">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="covCRIM"/>
+			<xsd:enumeration value="covCyber"/>
+			<xsd:enumeration value="covDO"/>
+			<xsd:enumeration value="covEPLI"/>
+			<xsd:enumeration value="covFIDUC"/>
+			<xsd:enumeration value="covKIDRA"/>
+			<xsd:enumeration value="SpecIssue"/>
+			<xsd:enumeration value="PMSUpdate"/>
+			<xsd:enumeration value="appInfo"/>
+			<xsd:enumeration value="AgentComments"/>
+			<xsd:enumeration value="ApplicantQuestionnaire"/>
+			<xsd:enumeration value="lossHistory"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:element name="AP_AdjustmentDisplay" type="AP_AdjustmentDisplay_Type"/>
+	<xsd:complexType name="AP_AdjustmentDisplay_Type">
+		<xsd:sequence>
+			<xsd:element ref="AP_AdjustmentId"/>
+			<xsd:element ref="AP_DisplayState"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="AP_GeninfoDisplay" type="AP_GeninfoDisplay_Type"/>
+	<xsd:complexType name="AP_GeninfoDisplay_Type">
+		<xsd:sequence>
+			<xsd:element ref="AP_GeninfoId"/>
+			<xsd:element ref="AP_DisplayState"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="AP_RenewalForms_Type">
+		<xsd:sequence>
+			<xsd:element maxOccurs="1" minOccurs="0" ref="Message"></xsd:element>
+			<xsd:element ref="Form" maxOccurs="unbounded" minOccurs="0"></xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="AP_OriginId" type="String-ID"></xsd:element>
+	<xsd:element name="AP_RenewalForms" type="AP_RenewalForms_Type"></xsd:element>
+	<xsd:element name="Message" type="String-ID"></xsd:element>
+	<xsd:element name="AP_ChangeType" type="String-ID"></xsd:element>
+	<xsd:element name="AP_HanoveProfLiabGeneralInfo" type="AP_HanoveProfLiabGeneralInfo_Type"/>	
+	<xsd:element name="AP_MonoComboInd" type="String-ID"></xsd:element>
+	<xsd:element name="AP_ClaimsOccurenceInd" type="String-ID"></xsd:element>
+	<xsd:element name="AP_GrossBillings" type="AP_GrossBillings_Type"/>	
+	<xsd:element name="AP_Sequence" type="String-ID"></xsd:element>
+</xsd:schema>

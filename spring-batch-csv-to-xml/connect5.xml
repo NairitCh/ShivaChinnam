@@ -1,0 +1,17 @@
+<Context docBase="connect5" path="/connect5" reloadable="false">
+	 <!-- Connect5 DB -->
+	<Resource auth="Container" description="Oracle database for Connect5" driverClassName="oracle.jdbc.driver.OracleDriver" 
+		maxActive="100" maxIdle="30" maxWait="10000" name="connect5" password="applatform" type="javax.sql.DataSource" 
+		url="jdbc:oracle:thin:@//lxdv8ora:1521/APPFIN5" username="applatform"/>
+		
+	 <!-- PMS DB -->
+	 <Resource auth="Container" description="DB2 database for AgencyPortal" defaultTransactionIsolation="READ_COMMITTED" 
+	 	driverClassName="com.ibm.db2.jcc.DB2Driver" logAbandoned="true" maxActive="20" maxIdle="10" maxWait="10000" name="PMSReferenceData" 
+	 	password="PLUSINT1" removeAbandoned="true" removeAbandonedTimeout="60" type="javax.sql.DataSource" 
+	 	url="jdbc:db2://smatest.os390.allmerica.com:4104/SMATEST:currentSchema=HNDBN00E;" username="PLUSINT1" validationQuery="select 1 from sysibm.sysdummy1" /> 
+	 	
+	 <!-- Portal DB -->	
+	<Resource auth="Container" description="Oracle database for AgencyPortal" driverClassName="oracle.jdbc.driver.OracleDriver" 
+		maxActive="100" maxIdle="30" maxWait="10000" name="agencyportal" password="agencyportal" type="javax.sql.DataSource" 
+		url="jdbc:oracle:thin:@//lxdv8ora:1521/APRTIN5" username="agencyportal"/>
+</Context>
